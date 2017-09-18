@@ -45,7 +45,8 @@ public class RootLayoutController {
     private void handleOpenSia451(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("sia451", "*.451")
+                new FileChooser.ExtensionFilter("sia451", "*.451"),
+                new FileChooser.ExtensionFilter("sia451", "*.01s")
         );
         fileChooser.setInitialDirectory(new File("D:\\temp"));
         File selectedFile = fileChooser.showOpenDialog(null);
