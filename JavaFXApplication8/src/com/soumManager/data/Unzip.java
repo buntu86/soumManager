@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javafx.scene.control.Alert;
@@ -13,15 +14,21 @@ import javafx.scene.control.Alert;
 public class Unzip {
     public static File unzip(Path input) {
         byte[] buffer = new byte[1024];
-        String OUTPUT_FOLDER = "D:\\temp\\soum";
-        File xmlFile = null;
-        boolean unzipX451 = false;
+        File tmp = new File("C:\\soumManager\\" + UUID.randomUUID() + ".tmp");
+        try {
+            tmp = File.createTempFile("soumManager-", ".tmp");
+            tmp.deleteOnExit();
+            Log.msg(0, tmp.getAbsolutePath());
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur - unzip");
+            alert.setHeaderText(null);
+            alert.setContentText("Erreur unzip : impossible de créer le fichier temporaire : " + ex.getMessage());
+            alert.showAndWait(); 
+            Log.msg(1, "Unzip x451.xml");
+        }
         
         try{
-            File folder = new File(OUTPUT_FOLDER);
-            if(!folder.exists())
-                folder.mkdir();
-            
             ZipInputStream zis = new ZipInputStream(new FileInputStream(input.toFile()));
             ZipEntry ze = zis.getNextEntry();
             while(ze!=null){
@@ -29,9 +36,7 @@ public class Unzip {
                
                 if(fileName.equals("x451.xml"))
                 {
-                    xmlFile = new File(OUTPUT_FOLDER + File.separator + fileName);
-                    //File newFile = new File(OUTPUT_FOLDER + File.separator + UUID.randomUUID() + ".tmp");
-                    FileOutputStream fos = new FileOutputStream(xmlFile);
+                    FileOutputStream fos = new FileOutputStream(tmp);
 
                     int len;
                     while ((len = zis.read(buffer)) > 0) {
@@ -47,7 +52,7 @@ public class Unzip {
             zis.closeEntry();
             zis.close();
             
-            return xmlFile;
+            return tmp;
         }
         catch(IOException ex){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -58,6 +63,6 @@ public class Unzip {
             Log.msg(1, "Unzip x451.xml");
         }
         
-        return xmlFile;
+        return tmp;
     }        
 }

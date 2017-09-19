@@ -3,25 +3,23 @@ package com.soumManager.utils;
 import com.soumManager.model.Catalog;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 public class Config {
      
-    private static Path tempFolder = Paths.get("D:\\temp\\soum");
-    private static Path tempX451 = Paths.get(tempFolder.toString() + "\\x451.xml");
+    //private static Path tempFolder = Paths.get("D:\\temp\\soum");
     private static Properties prop = new Properties();
     private static Path path_listCatalog, path_dbReference;
     private static ObservableList<Catalog> listCatalog = FXCollections.observableArrayList();
     private static Path fileSia451;
-    
-    public static Path getTempX451(){
-        return tempX451;
-    }
     
     public static void iniConfig(){
         try {            

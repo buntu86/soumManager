@@ -1,7 +1,6 @@
 package com.soumManager.model;
 
 import com.soumManager.data.Unzip;
-import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import java.io.File;
 import java.nio.file.Path;
@@ -41,7 +40,6 @@ public class Sia451_XML {
     private void xml(){
         try {
             final DocumentBuilder builder = factory.newDocumentBuilder();
-            Log.msg(0, Config.getTempX451().toString());
             final Document document= builder.parse(xmlFile);
             final Element racine = document.getDocumentElement();
             
