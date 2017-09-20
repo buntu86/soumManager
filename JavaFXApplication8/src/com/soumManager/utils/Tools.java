@@ -4,6 +4,26 @@ import com.soumManager.MainApp;
 import javafx.stage.Stage;
 
 public class Tools {
+    public static int stringToInt(String str){
+        str = str.replaceAll("[^\\d]", "");
+        if(str.isEmpty())
+            str = "0";  
+        
+        return Integer.parseInt(str);
+    }    
+    
+    public static float stringToFloat(String str){
+        str = str.replaceAll("[^\\d]", "");
+        if(str.isEmpty())
+            str = "0";  
+
+        return Float.parseFloat(str);
+    }
+    
+    public static String intToString(int i){
+        return "" + i;
+    }
+
     /*private static MainApp main;
     
     public static void setTitlePrimaryStage(String str){
@@ -18,12 +38,6 @@ public class Tools {
     
     public static Stage getPrimaryStage(){
         return main.getPrimaryStage();
-    }*/
-    
-    public static int stringToInteger(String str){
-        if(str!="")
-            return Integer.parseInt(str);
-        else
-            return 0;
-    }
+    }*/    
+
 }

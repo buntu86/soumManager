@@ -20,7 +20,11 @@ public class Sia451 {
         {
             Sia451_01s sia = new Sia451_01s(path);
             this.projet = sia.getProjet();
-        }        
+        }  
+        
+        for(Position element : projet.getListPosition()){
+            Log.msg(0, "CAN " + element.getNumCatalog() + " " + element.getNumPos());
+        }
     }
     
     public Projet getProjet(){

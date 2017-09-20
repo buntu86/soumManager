@@ -1,6 +1,7 @@
 package com.soumManager.model;
 
 import com.soumManager.utils.Log;
+import com.soumManager.utils.Tools;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -28,7 +29,8 @@ public class Sia451_01s {
             //CAT CHAPTER
             setListCatChapter();
             
-            Log.msg(0, "nombre de chapter " + projet.getListCatChapter().size());
+            //POSITION
+            setPositions();
             
         } catch (IOException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -55,8 +57,6 @@ public class Sia451_01s {
         if(numMandat.isEmpty())
             numMandat = "---";
 
-        Log.msg(0, "setNumMandat " + numMandat);
-        
         return numMandat;
     }    
     
@@ -69,7 +69,6 @@ public class Sia451_01s {
                 .get();
 
         nomMandat=nomMandat.substring(92, 122).trim();
-        Log.msg(0, "setNomMandat " + nomMandat);
         
         if(nomMandat.isEmpty())
             nomMandat = "inconnu";
@@ -81,7 +80,6 @@ public class Sia451_01s {
                 .filter(line -> line.startsWith("G") && line.substring(41,42).equals("1"))
                 .collect(Collectors.toList());
         
-        Log.msg(0, "constructor : nbrCatalog " + list.size());
         int i = 0;
         for(String element : list)
         {            
@@ -93,6 +91,38 @@ public class Sia451_01s {
             projet.addCatChapter(catChapter);
             i++;
         }
-        Log.msg(0, "test after");
-    }    
+    }   
+    private void setPositions() {
+        List<String> list = listString.stream()
+                .filter(line -> line.startsWith("G") && line.substring(41,42).equals("2"))
+                .collect(Collectors.toList());        
+        
+        int id = 0;
+        
+        for(String element : list)
+        {
+            int numCatalog=0, numPos=0;
+            String text = "inconnu";
+            
+            if(element.length()>=4)
+                numCatalog = Tools.stringToInt(element.substring(1, 4));
+            
+            if(element.length()>=13)
+                numPos = Tools.stringToInt(element.substring(7, 13));
+            
+            if(element.length()>=92)
+                text = element.substring(92);           
+            
+            //Log.msg(0, "CAN " + numCatalog + "|numPos " + numPos + "|text " + text);
+
+            projet.addPosition(new Position(id, 
+                    numCatalog, //numCatalog
+                    0, //yearCatalog
+                    0, //prix
+                    text, //texte
+                    numPos, //numPos
+                    1));
+            id++;
+        }    
+    }
 }
