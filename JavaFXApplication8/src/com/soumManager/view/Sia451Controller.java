@@ -3,7 +3,7 @@ package com.soumManager.view;
 import com.soumManager.model.Catalog;
 import com.soumManager.model.Position;
 import com.soumManager.model.Sia451;
-import com.soumManager.model.Sia451_XML;
+import com.soumManager.data.Sia451_XML;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import java.net.URL;

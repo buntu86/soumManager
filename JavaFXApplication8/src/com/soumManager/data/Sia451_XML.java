@@ -1,6 +1,9 @@
-package com.soumManager.model;
+package com.soumManager.data;
 
 import com.soumManager.data.Unzip;
+import com.soumManager.model.Catalog;
+import com.soumManager.model.Position;
+import com.soumManager.model.Projet;
 import com.soumManager.utils.Log;
 import java.io.File;
 import java.nio.file.Path;

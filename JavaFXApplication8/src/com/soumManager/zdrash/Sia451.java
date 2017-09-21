@@ -1,11 +1,13 @@
-package com.soumManager.model;
+/*package com.soumManager.model;
 
+import com.soumManager.data.Sia451_01s;
+import com.soumManager.data.Sia451_XML;
 import com.soumManager.utils.Log;
 import java.nio.file.Path;
 
 public class Sia451 {
     
-    private Projet projet;    
+    private Projet2 projet;    
     
     public Sia451(Path path){
         String filename = path.getFileName().toString().toLowerCase();
@@ -26,10 +28,9 @@ public class Sia451 {
         for(Position element : projet.getListPosition()){
             Log.msg(0, "CAN " + element.getNumCatalog() + " " + element.getNumPos());
         }
-        */
     }
     
-    public Projet getProjet(){
+    public Projet2 getProjet(){
         return this.projet;
     }
 }

@@ -1,12 +1,12 @@
 package com.soumManager.model;
 
-import com.soumManager.zdrash.Position;
+import com.soumManager.zdrash.Position2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Projet_CatChapter {
     private String numChapter, nomChapter, versChapter, refChapter;
-    private ObservableList<Position> listPosition = FXCollections.observableArrayList();    
+    private ObservableList<Position2> listPosition = FXCollections.observableArrayList();    
 
     public void CatChapter(){
         this.numChapter = "";
@@ -30,7 +30,7 @@ public class Projet_CatChapter {
     }
     
     // ADD
-    public void addPosition(Position pos){
+    public void addPosition(Position2 pos){
         this.listPosition.add(pos);
     }
     

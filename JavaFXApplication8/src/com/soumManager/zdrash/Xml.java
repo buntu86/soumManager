@@ -1,7 +1,7 @@
 package com.soumManager.zdrash;
 
 import com.soumManager.model.Projet_CatChapter;
-import com.soumManager.zdrash.Position;
+import com.soumManager.zdrash.Position2;
 import com.soumManager.model.Projet;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
