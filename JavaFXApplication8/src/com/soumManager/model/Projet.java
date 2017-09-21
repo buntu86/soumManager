@@ -31,16 +31,7 @@ public class Projet {
     public void addCatChapter(Catalog cat){
         listCatChapter.add(cat);
     }
-    public void addPosition(Position pos){
-        
-        Optional<Catalog> tmp = listCatChapter
-                .stream()
-                .filter(p -> p.getRefCatalog().equals(pos.getRefCatalog()))
-                .findFirst();
-        
-        pos.setNumCatalog(tmp.get().getNumCatalog());
-        pos.setYearCatalog(tmp.get().getYear());
-        
+    public void addPosition(Position pos){        
         listPosition.add(pos);
     }
     public void addQuantite(String ref, String quantite){

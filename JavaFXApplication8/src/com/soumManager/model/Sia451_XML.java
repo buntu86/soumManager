@@ -4,6 +4,7 @@ import com.soumManager.data.Unzip;
 import com.soumManager.utils.Log;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -70,7 +71,16 @@ public class Sia451_XML {
             {
                 Element elementPosition = (Element) positionNodes.item(j);
                 if(elementPosition.getElementsByTagName("PosType").item(0).getFirstChild().getNodeValue().equals("2"))
-                {    
+                {   
+                    /*
+                    Optional<Catalog> tmp = listCatChapter
+                            .stream()
+                            .filter(p -> p.getRefCatalog().equals(pos.getRefCatalog()))
+                            .findFirst();
+                    pos.setNumCatalog(tmp.get().getNumCatalog());
+                    pos.setYearCatalog(tmp.get().getYear());
+                    */
+                    
                     projet.addPosition(new Position(
                             elementPosition.getAttribute("id"), //id
                             elementPosition.getAttribute("ref"), //ref catalog
