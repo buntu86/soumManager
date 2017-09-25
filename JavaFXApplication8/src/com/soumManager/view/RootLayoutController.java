@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
 public class RootLayoutController {
 
     private MainApp mainApp;
-    private AnchorPane referenceLayout, sia451Layout;
+    private AnchorPane referenceLayout, sia451Layout, agendaLayout;
     private BorderPane rootLayout;    
     
     @FXML
@@ -40,7 +40,23 @@ public class RootLayoutController {
             Log.msg(1, "showReferences | " + e.getMessage());
         }
     }
+    @FXML
+    private void handleOpenAgenda(){
+        try {
+            
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Agenda.fxml"));            
+            agendaLayout = (AnchorPane) loader.load();     
+            AgendaController controller = loader.getController();
+            
+            rootLayout.setCenter(agendaLayout);
 
+        } catch (Exception e) {
+            Log.msg(1, "showAgenda | " + e.getMessage());
+        }        
+    }
+    
+    
     @FXML
     private void handleOpenSia451(){
         FileChooser fileChooser = new FileChooser();

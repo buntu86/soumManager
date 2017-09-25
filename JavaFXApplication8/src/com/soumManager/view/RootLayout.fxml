@@ -31,6 +31,12 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleCloseRef" text="Fermer" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Agenda">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpenAgenda" text="Ouvrir" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCloseRef" text="Fermer" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="?">
             <items>
               <MenuItem mnemonicParsing="false" text="A propos de" />

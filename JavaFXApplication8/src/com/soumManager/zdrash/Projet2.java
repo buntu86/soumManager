@@ -1,4 +1,4 @@
-/*package com.soumManager.model;
+package com.soumManager.zdrash;
 
 import java.util.Optional;
 import static java.util.stream.Collectors.toCollection;
@@ -7,13 +7,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Projet {
+public class Projet2 {
     
-    private StringProperty numProjet, nomProjet;
+    /*private StringProperty numProjet, nomProjet;
     private ObservableList<Catalog> listCatChapter = FXCollections.observableArrayList();
     private ObservableList<Position> listPosition = FXCollections.observableArrayList();    
     
-    public Projet(String numProjet, String nomProjet) {
+    public Projet2(String numProjet, String nomProjet) {
         this.numProjet = new SimpleStringProperty(numProjet);
         this.nomProjet = new SimpleStringProperty(nomProjet);
         this.listCatChapter.add(0, new Catalog(900, 0, "Récapitulatif", ""));
@@ -97,5 +97,5 @@ public class Projet {
         
         if(tmp.isPresent())
             tmp.get().setUnit(unit);
-    }
+    }*/
 }

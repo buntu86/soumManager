@@ -1,4 +1,4 @@
-package com.soumManager.model;
+package com.agenda.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

@@ -1,7 +1,7 @@
 package com.soumManager.data;
 
 import com.soumManager.model.Catalog;
-import com.soumManager.model.Position;
+import com.soumManager.model.Position21;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import static java.lang.System.exit;
@@ -19,9 +19,9 @@ import javafx.scene.control.TextField;
 
 public class Sql_dbReference {
     private static Connection conn = null;
-    private static ObservableList<Position> listReference = FXCollections.observableArrayList();    
+    private static ObservableList<Position21> listReference = FXCollections.observableArrayList();    
     
-    public static ObservableList<Position> getReferenceByNumCat(int numCatalog) {
+    public static ObservableList<Position21> getReferenceByNumCat(int numCatalog) {
         connect();
         listReference.clear();
         String sql = "SELECT * FROM reference WHERE numCatalog = " + numCatalog + " ORDER BY numPos ASC";
@@ -30,7 +30,7 @@ public class Sql_dbReference {
         ResultSet rs = stmt.executeQuery(sql);
         Log.msg(0, "GetReferenceByNumCat : " + sql);
         while(rs.next()){
-            listReference.add(new Position(
+            listReference.add(new Position21(
                     rs.getInt("ID"),
                     rs.getInt("numCatalog"),
                     rs.getInt("yearCatalog"),

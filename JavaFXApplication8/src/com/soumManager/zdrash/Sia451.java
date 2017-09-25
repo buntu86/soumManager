@@ -1,4 +1,4 @@
-/*package com.soumManager.model;
+package com.soumManager.model;
 
 import com.soumManager.data.Sia451_01s;
 import com.soumManager.data.Sia451_XML;
@@ -6,7 +6,7 @@ import com.soumManager.utils.Log;
 import java.nio.file.Path;
 
 public class Sia451 {
-    
+/*    
     private Projet2 projet;    
     
     public Sia451(Path path){
@@ -32,5 +32,5 @@ public class Sia451 {
     
     public Projet2 getProjet(){
         return this.projet;
-    }
+    }*/
 }

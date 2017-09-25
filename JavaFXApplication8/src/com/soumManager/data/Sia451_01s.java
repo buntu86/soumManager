@@ -1,7 +1,7 @@
 package com.soumManager.data;
 
 import com.soumManager.model.Catalog;
-import com.soumManager.model.Position;
+import com.soumManager.model.Position21;
 import com.soumManager.model.Projet;
 import com.soumManager.utils.Log;
 import com.soumManager.utils.Tools;
@@ -23,7 +23,7 @@ public class Sia451_01s {
     private static List<String> listString = null;
     
     public Sia451_01s(Path fileSia451) {
-        try {
+        /*try {
             listString = Files.readAllLines(fileSia451, Charset.forName("IBM437"));
 
             //PROJET
@@ -118,7 +118,7 @@ public class Sia451_01s {
             
             //Log.msg(0, "CAN " + numCatalog + "|numPos " + numPos + "|text " + text);
 
-            projet.addPosition(new Position(id, 
+            projet.addPosition(new Position21(id, 
                     numCatalog, //numCatalog
                     0, //yearCatalog
                     0, //prix
@@ -126,6 +126,6 @@ public class Sia451_01s {
                     numPos, //numPos
                     1));
             id++;
-        }    
+        }    */
     }
 }

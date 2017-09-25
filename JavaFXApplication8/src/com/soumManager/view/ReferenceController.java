@@ -2,7 +2,7 @@ package com.soumManager.view;
 
 import com.soumManager.data.Sql_dbReference;
 import com.soumManager.model.Catalog;
-import com.soumManager.model.Position;
+import com.soumManager.model.Position21;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import javafx.fxml.FXML;
@@ -18,19 +18,19 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 public class ReferenceController implements Initializable {
     @FXML
-    private TableView<Position> table;
+    private TableView<Position21> table;
     
     @FXML
-    private TableColumn<Position, String> numPos;
+    private TableColumn<Position21, String> numPos;
     
     @FXML
-    private TableColumn<Position, String> text;
+    private TableColumn<Position21, String> text;
     
     @FXML
-    private TableColumn<Position, String> prix;
+    private TableColumn<Position21, String> prix;
     
     @FXML
-    private TableColumn<Position, String> annee;
+    private TableColumn<Position21, String> annee;
     
     @FXML
     private ComboBox<Catalog> cb;

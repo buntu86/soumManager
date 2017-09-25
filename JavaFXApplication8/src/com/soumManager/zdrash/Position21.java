@@ -9,13 +9,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Position {
+public class Position21 {
     private IntegerProperty id, numCatalog, yearCatalog, numPos, idTypePos;
     private FloatProperty prix, quantite, total;
     private StringProperty text, idXml, refCatalog, unit;
     
     //Create from reference
-    public Position(int id, int numCatalog, int yearCatalog, float prix, String text, int numPos, int idTypePos){
+    public Position21(int id, int numCatalog, int yearCatalog, float prix, String text, int numPos, int idTypePos){
         this.numCatalog = new SimpleIntegerProperty(numCatalog);
         this.yearCatalog = new SimpleIntegerProperty(yearCatalog);
         this.numPos = new SimpleIntegerProperty(numPos);
@@ -31,7 +31,7 @@ public class Position {
     }
     
     //Create from xml
-    public Position(String idXml, String refCatalog, float prix, String text, String numPos, int idTypePos, int quantite){
+    public Position21(String idXml, String refCatalog, float prix, String text, String numPos, int idTypePos, int quantite){
         this.idXml =  new SimpleStringProperty(idXml);
         this.refCatalog = new SimpleStringProperty(refCatalog);
         this.id = new SimpleIntegerProperty(0);

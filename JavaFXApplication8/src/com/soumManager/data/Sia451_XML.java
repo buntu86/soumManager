@@ -2,7 +2,7 @@ package com.soumManager.data;
 
 import com.soumManager.data.Unzip;
 import com.soumManager.model.Catalog;
-import com.soumManager.model.Position;
+import com.soumManager.model.Position21;
 import com.soumManager.model.Projet;
 import com.soumManager.utils.Log;
 import java.io.File;
@@ -24,7 +24,7 @@ public class Sia451_XML {
     public Sia451_XML(Path fileSia451) {
         xmlFile = Unzip.unzip(fileSia451);
         
-        if(xmlFile!=null){
+/*        if(xmlFile!=null){
             xml();
         }
         else
@@ -65,7 +65,7 @@ public class Sia451_XML {
                         element.getElementsByTagName("ChapterName").item(0).getFirstChild().getNodeValue(), 
                         element.getAttribute("id"));
 
-                projet.addCatChapter(catChapter);
+                //projet.addCatChapter(catChapter);
             }
 
             // POSITION
@@ -84,7 +84,7 @@ public class Sia451_XML {
                     pos.setYearCatalog(tmp.get().getYear());
                     */
                     
-                    projet.addPosition(new Position(
+                    /*projet.addPosition(new Position21(
                             elementPosition.getAttribute("id"), //id
                             elementPosition.getAttribute("ref"), //ref catalog
                             0.00f, //prix
@@ -121,6 +121,6 @@ public class Sia451_XML {
         }   
         catch (Exception ex) {
             Log.msg(1, "Erreur xml " + ex);
-        }
+        }*/
     }
 }

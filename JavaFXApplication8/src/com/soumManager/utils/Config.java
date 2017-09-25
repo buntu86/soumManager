@@ -17,7 +17,7 @@ public class Config {
      
     //private static Path tempFolder = Paths.get("D:\\temp\\soum");
     private static Properties prop = new Properties();
-    private static Path path_listCatalog, path_dbReference;
+    private static Path path_listCatalog, path_dbReference, path_agenda;
     private static ObservableList<Catalog> listCatalog = FXCollections.observableArrayList();
     private static Path fileSia451;
     
@@ -29,7 +29,18 @@ public class Config {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur - fichier de config");
             alert.setHeaderText(null);
-            alert.setContentText("Le fichier de configuration n'a pas pu être chargé.");
+            alert.setContentText("Le fichier de configuration n'a pas pu être chargé.\n Erreur - listCatalog.db -");
+            alert.showAndWait();
+            System.exit(1);
+        }   
+        try {            
+            prop.load(new FileInputStream("resources/config.properties"));
+            path_agenda = Paths.get(prop.getProperty("path_dbAgenda"));
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur - fichier de config");
+            alert.setHeaderText(null);
+            alert.setContentText("Le fichier de configuration n'a pas pu être chargé.\n Erreur - dbAgenda.db -");
             alert.showAndWait();
             System.exit(1);
         }   
@@ -40,7 +51,7 @@ public class Config {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur - fichier de réference");
             alert.setHeaderText(null);
-            alert.setContentText("Le fichier de dbReference n'a pas pu être chargé.");
+            alert.setContentText("Le fichier de dbReference n'a pas pu être chargé.\n Erreur - dbReference.db -");
             alert.showAndWait();
             System.exit(1);
         }   
@@ -48,6 +59,10 @@ public class Config {
     
     public static Path getPath_listCatalog(){
         return path_listCatalog;
+    }
+    
+    public static Path getPath_agenda(){
+        return path_agenda;
     }
     
     public static Path getPath_dbReference(){

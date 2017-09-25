@@ -1,7 +1,7 @@
 package com.soumManager.view;
 
 import com.soumManager.model.Catalog;
-import com.soumManager.model.Position;
+import com.soumManager.model.Position21;
 import com.soumManager.model.Sia451;
 import com.soumManager.data.Sia451_XML;
 import com.soumManager.utils.Config;
@@ -17,19 +17,19 @@ import javafx.scene.control.TableView;
 public class Sia451Controller implements Initializable {
     //POSITION
     @FXML
-    private TableView<Position> tablePos;    
+    private TableView<Position21> tablePos;    
     @FXML
-    private TableColumn<Position, String> numPos;
+    private TableColumn<Position21, String> numPos;
     @FXML
-    private TableColumn<Position, String> textPos;
+    private TableColumn<Position21, String> textPos;
     @FXML
-    private TableColumn<Position, String> quantite;
+    private TableColumn<Position21, String> quantite;
     @FXML
-    private TableColumn<Position, String> unit;
+    private TableColumn<Position21, String> unit;
     @FXML
-    private TableColumn<Position, String> prix;
+    private TableColumn<Position21, String> prix;
     @FXML
-    private TableColumn<Position, String> total;    
+    private TableColumn<Position21, String> total;    
 
     //CATALOG
     @FXML
@@ -49,7 +49,7 @@ public class Sia451Controller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sia451 = new Sia451(Config.getFileSia451());
+        /*sia451 = new Sia451(Config.getFileSia451());
         
         cb.setItems(sia451.getProjet().getListCatChapter());
         cb.getSelectionModel().selectFirst();
@@ -72,10 +72,10 @@ public class Sia451Controller implements Initializable {
         tablePos.setVisible(false);
 
         tableCat.setItems(sia451.getProjet().getListCatChapterToRecap());
-        tableCat.setVisible(true);
+        tableCat.setVisible(true);*/
     }
     private void updateValue(int num){
-        numCatalogSelect = cb.getSelectionModel().getSelectedItem().getNumCatalog();
+       /* numCatalogSelect = cb.getSelectionModel().getSelectedItem().getNumCatalog();
         tablePos.setItems(sia451.getProjet().getListPosition().filtered(p -> p.getNumCatalog() == this.numCatalogSelect));
         if(numCatalogSelect == 0)
         {
@@ -86,6 +86,6 @@ public class Sia451Controller implements Initializable {
         {
             tablePos.setVisible(true);
             tableCat.setVisible(false);            
-        }
+        }*/
     }    
 }
