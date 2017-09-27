@@ -8,6 +8,11 @@ public final class Agenda {
     public static ObservableList<Adresse> getListeAdresses(){
         return Sql_agenda.getAdresses();
     }
+    
+    public static ObservableList<Adresse> getListeAdresses_byIdTypes(int id){
+        return Sql_agenda.getAdresses_byIdTypes(id);
+    }
+    
     public static ObservableList<Adresse_type> getListeTypes(){
         return Sql_agenda.getTypes();
     }    

@@ -1,5 +1,6 @@
 package com.soumManager.view;
 
+import com.agenda.model.Adresse;
 import com.agenda.model.Adresse_type;
 import com.agenda.model.Agenda;
 import com.soumManager.model.Position21;
@@ -41,20 +42,25 @@ public class AgendaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        TreeItem<String> root = new TreeItem<>("Agenda");
-        
-        Log.msg(0, "" + Agenda.getListeTypes().size());
-        
-        for(Adresse_type type : Agenda.getListeTypes()){
-            TreeItem<String> level1 = new TreeItem<> (type.getCategorie());
+        //TreeItem<Adresse_type> root = new TreeItem<Adresse_type>();
+        TreeItem<String> root = new TreeItem<> ("Agenda");
+        /*for(Adresse_type type : Agenda.getListeTypes()){
+            TreeItem<Adresse_type> level1 = new TreeItem<> (type);
+            root.getChildren().add(root)
             
-            root.getChildren().add(level1);
-        }
-        
+            /*for(Adresse adresse : Agenda.getListeAdresses_byIdTypes(type.getId())){
+                TreeItem<String> level2 = new TreeItem<> (adresse.getNom1());
+                //level1.getChildren().add(level2);
+            }
+            
+        }*/
+        //tree.setShowRoot(false);
         tree.setRoot(root);     
+        
+        //tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> Log.msg(0, newValue.getValue()));
+        
+        //rootTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showArticlesDetails(newValue.getValue()));        
     }    
-    
 }
 
 /*

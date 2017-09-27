@@ -28,7 +28,12 @@ public final class Adresse_type {
         this.id = id;
     }
     
-    private int getId(){
+    public int getId(){
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Adresse_type{" + "categorie=" + categorie + '}';
     }
 }
