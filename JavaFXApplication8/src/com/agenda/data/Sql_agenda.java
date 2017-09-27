@@ -2,6 +2,7 @@ package com.agenda.data;
 
 import com.agenda.model.Adresse;
 import com.agenda.model.Adresse_type;
+import com.agenda.model.Agenda;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import java.sql.Connection;
@@ -177,5 +178,34 @@ public class Sql_agenda {
         catch(SQLException e){        
             Log.msg(1, "Fail add adresse sql " + e);
         }
+    }
+
+    public static Adresse getAdresseById(int id) {
+        Adresse tmp = null;
+        
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Adresses WHERE ID=?");
+            pstmt.setInt(1, id);
+            ResultSet rsAdresses = pstmt.executeQuery();
+            while(rsAdresses.next()){
+                tmp = new Adresse(
+                    rsAdresses.getInt("ID"),
+                    rsAdresses.getString("nom1"),
+                    rsAdresses.getString("nom2"),
+                    rsAdresses.getString("adresse1"),
+                    rsAdresses.getString("adresse2"),
+                    rsAdresses.getString("lieu"),
+                    rsAdresses.getInt("npa"),
+                    rsAdresses.getString("tel1"),
+                    rsAdresses.getString("tel2"),
+                    rsAdresses.getString("mail"),
+                    rsAdresses.getInt("idType"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }     
+        
+        return tmp;
     }
 }

@@ -20,4 +20,8 @@ public final class Agenda {
     public static void addAdresse(Adresse adresse) {
         Sql_agenda.add(adresse);
     }
+
+    public static Adresse getAdresseById(int id) {
+        return Sql_agenda.getAdresseById(id);
+    }
 }

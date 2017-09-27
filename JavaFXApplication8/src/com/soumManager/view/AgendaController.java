@@ -1,11 +1,13 @@
 package com.soumManager.view;
 
 import com.agenda.model.Adresse;
+import com.agenda.model.Adresse_contact;
 import com.agenda.model.Adresse_type;
 import com.agenda.model.Agenda;
 import com.agenda.model.Tree_objectPointer;
 import com.soumManager.model.Position21;
 import com.soumManager.utils.Log;
+import com.soumManager.utils.Tools;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +42,12 @@ public class AgendaController implements Initializable {
     private TextField tf_mail;
     @FXML
     private TreeView<Tree_objectPointer> tree;
+    @FXML
+    private TableView<Adresse_contact> tableview;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        disableTextField();
 
         List<Tree_objectPointer> listTypes = new ArrayList<>();
         
@@ -52,15 +57,11 @@ public class AgendaController implements Initializable {
         
         TreeItem<Tree_objectPointer> root = new TreeItem<>();
         for(Tree_objectPointer level1 : listTypes){
-            Log.msg(0, level1.getName());    
             TreeItem<Tree_objectPointer> level1TreeItem = new TreeItem<> (level1);
-            
             for(Adresse level2 : Agenda.getListeAdresses_byIdTypes(level1.getId())){
-                
-                Tree_objectPointer tmp = new Tree_objectPointer(0, level2.getNom1(), "adresse");
+                Tree_objectPointer tmp = new Tree_objectPointer(level2.getId(), level2.getNom1(), "adresse");
                 TreeItem<Tree_objectPointer> level2TreeItem = new TreeItem<> (tmp);
                 level1TreeItem.getChildren().add(level2TreeItem);
-                Log.msg(0, level2.getNom1());
             }
             
             root.getChildren().add(level1TreeItem);
@@ -69,8 +70,68 @@ public class AgendaController implements Initializable {
         tree.setShowRoot(false);
         tree.setRoot(root);     
         
-        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> Log.msg(0, newValue.getValue().getType()));
-        
+        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> actionWhenTreeIsSelected(newValue.getValue()));
+    }    
+    
+    private void actionWhenTreeIsSelected(Tree_objectPointer tObPo){
+        if(tObPo.getType().equals("type"))
+        {
+            enableTextField();
+            tf_nom1.clear();
+            tf_nom2.clear();
+            tf_adresse1.clear();
+            tf_adresse2.clear();
+            tf_npa.clear();
+            tf_lieu.clear();
+            tf_tel1.clear();
+            tf_tel2.clear();
+            tf_mail.clear();
+            
+            Log.msg(0, "type " + tObPo.getId());
+        }
+            
+        else if(tObPo.getType().equals("adresse"))
+        {
+            Adresse adresseShow = Agenda.getAdresseById(tObPo.getId());
+            enableTextField();
+            tf_nom1.setText(adresseShow.getNom1());
+            tf_nom2.setText(adresseShow.getNom2());
+            tf_adresse1.setText(adresseShow.getAdresse1());
+            tf_adresse2.setText(adresseShow.getAdresse2());
+            tf_npa.setText(Tools.intToString(adresseShow.getNpa()));
+            tf_tel1.setText(adresseShow.getTel1());
+            tf_tel2.setText(adresseShow.getTel2());
+            tf_mail.setText(adresseShow.getMail());
+            Log.msg(0, "adresse " + tObPo.getId());
+        }
+        else
+            disableTextField();
+    }
+    
+    private void disableTextField(){
+        tf_nom1.setDisable(true);
+        tf_nom2.setDisable(true);
+        tf_adresse1.setDisable(true);
+        tf_adresse2.setDisable(true);
+        tf_lieu.setDisable(true);
+        tf_npa.setDisable(true);
+        tf_tel1.setDisable(true);
+        tf_tel2.setDisable(true);
+        tf_mail.setDisable(true);
+        tableview.setDisable(true);
+    }
+    
+    private void enableTextField(){
+        tf_nom1.setDisable(false);
+        tf_nom2.setDisable(false);
+        tf_adresse1.setDisable(false);
+        tf_adresse2.setDisable(false);
+        tf_lieu.setDisable(false);
+        tf_npa.setDisable(false);
+        tf_tel1.setDisable(false);
+        tf_tel2.setDisable(false);
+        tf_mail.setDisable(false);
+        tableview.setDisable(false);
     }    
 }
 
