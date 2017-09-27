@@ -3,9 +3,12 @@ package com.soumManager.view;
 import com.agenda.model.Adresse;
 import com.agenda.model.Adresse_type;
 import com.agenda.model.Agenda;
+import com.agenda.model.Tree_objectPointer;
 import com.soumManager.model.Position21;
 import com.soumManager.utils.Log;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,31 +38,39 @@ public class AgendaController implements Initializable {
     private TextField tf_tel2;
     @FXML
     private TextField tf_mail;
-    
     @FXML
-    private TreeView<String> tree;
-
+    private TreeView<Tree_objectPointer> tree;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //TreeItem<Adresse_type> root = new TreeItem<Adresse_type>();
-        TreeItem<String> root = new TreeItem<> ("Agenda");
-        /*for(Adresse_type type : Agenda.getListeTypes()){
-            TreeItem<Adresse_type> level1 = new TreeItem<> (type);
-            root.getChildren().add(root)
+
+        List<Tree_objectPointer> listTypes = new ArrayList<>();
+        
+        for(Adresse_type obj : Agenda.getListeTypes()){
+            listTypes.add(new Tree_objectPointer(obj.getId(), obj.getCategorie(), "type"));
+        }        
+        
+        TreeItem<Tree_objectPointer> root = new TreeItem<>();
+        for(Tree_objectPointer level1 : listTypes){
+            Log.msg(0, level1.getName());    
+            TreeItem<Tree_objectPointer> level1TreeItem = new TreeItem<> (level1);
             
-            /*for(Adresse adresse : Agenda.getListeAdresses_byIdTypes(type.getId())){
-                TreeItem<String> level2 = new TreeItem<> (adresse.getNom1());
-                //level1.getChildren().add(level2);
+            for(Adresse level2 : Agenda.getListeAdresses_byIdTypes(level1.getId())){
+                
+                Tree_objectPointer tmp = new Tree_objectPointer(0, level2.getNom1(), "adresse");
+                TreeItem<Tree_objectPointer> level2TreeItem = new TreeItem<> (tmp);
+                level1TreeItem.getChildren().add(level2TreeItem);
+                Log.msg(0, level2.getNom1());
             }
             
-        }*/
-        //tree.setShowRoot(false);
+            root.getChildren().add(level1TreeItem);
+        }
+
+        tree.setShowRoot(false);
         tree.setRoot(root);     
         
-        //tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> Log.msg(0, newValue.getValue()));
+        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> Log.msg(0, newValue.getValue().getType()));
         
-        //rootTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showArticlesDetails(newValue.getValue()));        
     }    
 }
 

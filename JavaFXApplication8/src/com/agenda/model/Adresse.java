@@ -32,6 +32,10 @@ public final class Adresse {
         setIdAdresseType(idAdresseType);
     }
 
+    public int getId(){
+        return this.id;
+    }
+
     public String getTel2() {
         return tel2.get();
     }
