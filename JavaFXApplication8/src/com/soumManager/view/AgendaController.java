@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
-public class AgendaController implements Initializable {
+public class AgendaController {
 
     @FXML
     private TextField tf_nom1;
@@ -51,9 +52,11 @@ public class AgendaController implements Initializable {
     private Button btn_supprimer;
     @FXML
     private Button btn_fermer;
+    
+    private int idTypeSelected = 0;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         disableTextField();
 
         List<Tree_objectPointer> listTypes = new ArrayList<>();
@@ -83,7 +86,29 @@ public class AgendaController implements Initializable {
     //BUTTON
     @FXML
     private void actionBtnAjouter(){
-    
+        if(!tf_nom1.getText().trim().isEmpty())
+        {
+            Agenda.addAdresse(new Adresse(0,
+                    tf_nom1.getText().trim(),
+                    tf_nom2.getText().trim(),
+                    tf_adresse1.getText().trim(),
+                    tf_adresse2.getText().trim(),
+                    tf_lieu.getText().trim(),
+                    Tools.stringToInt(tf_npa.getText().trim()),
+                    tf_tel1.getText().trim(),
+                    tf_tel2.getText().trim(),
+                    tf_mail.getText().trim(),
+                    idTypeSelected));
+            initialize();
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur - ajout adresse");
+            alert.setHeaderText(null);
+            alert.setContentText("Le champs nom est obligatoire");
+            alert.showAndWait();        
+        }
     }
     @FXML
     private void actionBtnModifier(){
@@ -112,6 +137,9 @@ public class AgendaController implements Initializable {
             tf_tel1.clear();
             tf_tel2.clear();
             tf_mail.clear();
+            btn_ajouter.setVisible(true);
+            btn_supprimer.setVisible(true);
+            idTypeSelected = tObPo.getId();
         }
             
         else if(tObPo.getType().equals("adresse"))
@@ -126,6 +154,7 @@ public class AgendaController implements Initializable {
             tf_tel1.setText(adresseShow.getTel1());
             tf_tel2.setText(adresseShow.getTel2());
             tf_mail.setText(adresseShow.getMail());
+            btn_modifier.setVisible(true);            
         }
         else
             disableTextField();
@@ -151,6 +180,10 @@ public class AgendaController implements Initializable {
         tf_tel2.setDisable(true);
         tf_mail.setDisable(true);
         tableview.setDisable(true);
+        btn_ajouter.setVisible(false);
+        btn_modifier.setVisible(false);
+        btn_supprimer.setVisible(false);
+        btn_fermer.setDisable(true);
     }
     
     private void enableTextField(){
@@ -163,7 +196,8 @@ public class AgendaController implements Initializable {
         tf_tel1.setDisable(false);
         tf_tel2.setDisable(false);
         tf_mail.setDisable(false);
-        tableview.setDisable(false);
+        tableview.setDisable(false); 
+        btn_fermer.setDisable(false);
     }    
 }
 
