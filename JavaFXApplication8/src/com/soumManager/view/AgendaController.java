@@ -5,7 +5,6 @@ import com.agenda.model.Adresse_contact;
 import com.agenda.model.Adresse_type;
 import com.agenda.model.Agenda;
 import com.agenda.model.Tree_objectPointer;
-import com.soumManager.model.Position21;
 import com.soumManager.utils.Log;
 import com.soumManager.utils.Tools;
 import java.net.URL;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -44,6 +43,14 @@ public class AgendaController implements Initializable {
     private TreeView<Tree_objectPointer> tree;
     @FXML
     private TableView<Adresse_contact> tableview;
+    @FXML
+    private Button btn_ajouter;
+    @FXML
+    private Button btn_modifier;
+    @FXML
+    private Button btn_supprimer;
+    @FXML
+    private Button btn_fermer;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,6 +80,25 @@ public class AgendaController implements Initializable {
         tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> actionWhenTreeIsSelected(newValue.getValue()));
     }    
     
+    //BUTTON
+    @FXML
+    private void actionBtnAjouter(){
+    
+    }
+    @FXML
+    private void actionBtnModifier(){
+    
+    }
+    @FXML
+    private void actionBtnSupprimer(){
+    
+    }
+    @FXML
+    private void actionBtnFermer(){
+        disableTextField();
+    }    
+   
+    //TEXTFIELD
     private void actionWhenTreeIsSelected(Tree_objectPointer tObPo){
         if(tObPo.getType().equals("type"))
         {
@@ -86,8 +112,6 @@ public class AgendaController implements Initializable {
             tf_tel1.clear();
             tf_tel2.clear();
             tf_mail.clear();
-            
-            Log.msg(0, "type " + tObPo.getId());
         }
             
         else if(tObPo.getType().equals("adresse"))
@@ -102,13 +126,21 @@ public class AgendaController implements Initializable {
             tf_tel1.setText(adresseShow.getTel1());
             tf_tel2.setText(adresseShow.getTel2());
             tf_mail.setText(adresseShow.getMail());
-            Log.msg(0, "adresse " + tObPo.getId());
         }
         else
             disableTextField();
     }
     
     private void disableTextField(){
+        tf_nom1.clear();
+        tf_nom2.clear();
+        tf_adresse1.clear();
+        tf_adresse2.clear();
+        tf_npa.clear();
+        tf_lieu.clear();
+        tf_tel1.clear();
+        tf_tel2.clear();
+        tf_mail.clear();        
         tf_nom1.setDisable(true);
         tf_nom2.setDisable(true);
         tf_adresse1.setDisable(true);
