@@ -54,14 +54,38 @@ public class AgendaController implements Initializable{
     private Button btn_fermer;
     
     private int idTypeSelected = 0, idAdresseSelected = 0;
+    private TreeItem<Tree_objectPointer> root = new TreeItem<>();    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        generateTree(0);
         disableTextField();
-        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> actionWhenTreeIsSelected(newValue.getValue()));
+        generateTree();
+        tree.setRoot(root);
+        tree.setShowRoot(false);
+        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> actionWhenTreeIsSelected(newValue.getValue()));                                        
     }    
     
+   private void generateTree() {
+
+        if(root.getChildren().size()>0)
+            root.getChildren().clear();
+       
+        List<Tree_objectPointer> listTypes = new ArrayList<>();        
+        for(Adresse_type obj : Agenda.getListeTypes()){
+            listTypes.add(new Tree_objectPointer(obj.getId(), obj.getCategorie(), "type"));
+        }        
+        
+        for(Tree_objectPointer level1 : listTypes){
+            TreeItem<Tree_objectPointer> level1TreeItem = new TreeItem<> (level1);
+            for(Adresse level2 : Agenda.getListeAdresses_byIdTypes(level1.getId())){
+                Tree_objectPointer tmp = new Tree_objectPointer(level2.getId(), level2.getNom1(), "adresse");
+                TreeItem<Tree_objectPointer> level2TreeItem = new TreeItem<> (tmp);
+                level1TreeItem.getChildren().add(level2TreeItem);
+            }
+            root.getChildren().add(level1TreeItem);
+        }
+    }
+   
     //BUTTON
     @FXML
     private void actionBtnAjouter(){
@@ -77,8 +101,8 @@ public class AgendaController implements Initializable{
                     tf_tel1.getText().trim(),
                     tf_tel2.getText().trim(),
                     tf_mail.getText().trim(),
-                    idTypeSelected));
-            generateTree(idTypeSelected);
+                    idTypeSelected)); 
+            generateTree();
         }
         else
         {
@@ -97,7 +121,7 @@ public class AgendaController implements Initializable{
     private void actionBtnSupprimer(){
         if(idAdresseSelected!=0)
             Agenda.delAdresse(idAdresseSelected);
-        generateTree(idTypeSelected);
+        generateTree();
     }
     @FXML
     private void actionBtnFermer(){
@@ -191,28 +215,4 @@ public class AgendaController implements Initializable{
         tableview.setDisable(false); 
         btn_fermer.setDisable(false);
     }    
-
-    private void generateTree(int id) {
-        
-        List<Tree_objectPointer> listTypes = new ArrayList<>();
-        
-        for(Adresse_type obj : Agenda.getListeTypes()){
-            listTypes.add(new Tree_objectPointer(obj.getId(), obj.getCategorie(), "type"));
-        }        
-        
-        TreeItem<Tree_objectPointer> root = new TreeItem<>();
-        for(Tree_objectPointer level1 : listTypes){
-            TreeItem<Tree_objectPointer> level1TreeItem = new TreeItem<> (level1);
-            for(Adresse level2 : Agenda.getListeAdresses_byIdTypes(level1.getId())){
-                Tree_objectPointer tmp = new Tree_objectPointer(level2.getId(), level2.getNom1(), "adresse");
-                TreeItem<Tree_objectPointer> level2TreeItem = new TreeItem<> (tmp);
-                level1TreeItem.getChildren().add(level2TreeItem);
-            }
-
-            root.getChildren().add(level1TreeItem);
-        }
-
-        tree.setShowRoot(false);
-        tree.setRoot(root);     
-    }
 }
