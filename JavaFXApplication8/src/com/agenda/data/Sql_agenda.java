@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.sqlite.jdbc4.JDBC4PreparedStatement;
 
 public class Sql_agenda {
     private static Connection conn = null;
@@ -207,5 +208,18 @@ public class Sql_agenda {
         }     
         
         return tmp;
+    }
+
+    public static void del(int idAdresseSelected) {
+        connect();
+
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Adresses WHERE ID=?");
+            pstmt.setInt(1, idAdresseSelected);
+            pstmt.execute();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }       
     }
 }

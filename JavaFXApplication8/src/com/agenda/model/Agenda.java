@@ -24,4 +24,8 @@ public final class Agenda {
     public static Adresse getAdresseById(int id) {
         return Sql_agenda.getAdresseById(id);
     }
+
+    public static void delAdresse(int idAdresseSelected) {
+        Sql_agenda.del(idAdresseSelected);
+    }
 }
