@@ -40,6 +40,7 @@ public class RootLayoutController {
             Log.msg(1, "showReferences | " + e.getMessage());
         }
     }
+    
     @FXML
     private void handleOpenAgenda(){
         try {
@@ -55,7 +56,10 @@ public class RootLayoutController {
             Log.msg(1, "showAgenda | " + e.getMessage());
         }        
     }
-    
+    @FXML
+    private void handleCloseAgenda(){
+        rootLayout.getChildren().remove(agendaLayout);
+    }    
     
     @FXML
     private void handleOpenSia451(){
