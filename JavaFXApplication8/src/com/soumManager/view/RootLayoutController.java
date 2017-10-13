@@ -44,7 +44,6 @@ public class RootLayoutController {
     @FXML
     private void handleOpenAgenda(){
         try {
-            
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Agenda.fxml"));            
             agendaLayout = (AnchorPane) loader.load();     

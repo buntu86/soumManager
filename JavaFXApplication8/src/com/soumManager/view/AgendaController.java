@@ -5,7 +5,6 @@ import com.agenda.model.Adresse_contact;
 import com.agenda.model.Adresse_type;
 import com.agenda.model.Agenda;
 import com.agenda.model.Tree_objectPointer;
-import com.soumManager.utils.Log;
 import com.soumManager.utils.Tools;
 import java.net.URL;
 import java.util.ArrayList;
