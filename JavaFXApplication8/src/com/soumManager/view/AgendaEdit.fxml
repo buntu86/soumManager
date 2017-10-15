@@ -52,13 +52,11 @@
          </children>
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0">
-<!--         <buttons>
-            <Button fx:id="btn_ajouter" mnemonicParsing="false" onAction="#actionBtnAjouter" text="Ajouter" />
+        <buttons>
             <Button fx:id="btn_modifier" layoutX="135.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionBtnModifier" text="Modifier" />
             <Button fx:id="btn_supprimer" layoutX="135.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionBtnSupprimer" text="Supprimer" />
             <Button fx:id="btn_fermer" layoutX="115.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionBtnFermer" text="Fermer" />
          </buttons>
--->
       </ButtonBar>
    </children>
 </AnchorPane>

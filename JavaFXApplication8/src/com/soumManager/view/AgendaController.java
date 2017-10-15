@@ -68,13 +68,14 @@ public class AgendaController implements Initializable{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/soumManager/view/AgendaEdit.fxml"));
             agendaEditLayout = (AnchorPane) loader.load();  
+            AgendaEditController controller = loader.getController();
             Stage agendaEditStage = new Stage();
+            controller.setStage(agendaEditStage);            
+            controller.setId(idSelected);            
             agendaEditStage.setTitle("Agenda - édition");
             agendaEditStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(agendaEditLayout);
             agendaEditStage.setScene(scene);                                
-            AgendaEditController controller = loader.getController();
-            controller.setId(idSelected);
 
             agendaEditStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
                 if(t.getCode()==KeyCode.ESCAPE)
