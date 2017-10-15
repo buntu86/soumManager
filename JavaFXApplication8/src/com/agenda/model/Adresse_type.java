@@ -24,7 +24,7 @@ public final class Adresse_type {
         return categorie;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
     

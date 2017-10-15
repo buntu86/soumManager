@@ -17,6 +17,10 @@ public final class Agenda {
         return Sql_agenda.getTypes();
     }    
     
+    public static Adresse_type getAdresseType_byIdType(int id){
+        return Sql_agenda.getAdresseType_byIdType(id);
+    }
+    
     public static void addAdresse(Adresse adresse) {
         Sql_agenda.add(adresse);
     }
@@ -27,5 +31,9 @@ public final class Agenda {
 
     public static void delAdresse(int idAdresseSelected) {
         Sql_agenda.del(idAdresseSelected);
+    }
+
+    public static ObservableList<Adresse> getListeAdressesFromSearch(String string) {
+        return Sql_agenda.getListeAdressesFromSearch(string);
     }
 }

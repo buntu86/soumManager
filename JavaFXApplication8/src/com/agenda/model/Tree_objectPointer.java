@@ -1,24 +1,26 @@
 package com.agenda.model;
 
 import com.soumManager.utils.Config;
+import javafx.scene.control.TreeItem;
 
-public class Tree_objectPointer {
+public class Tree_objectPointer extends TreeItem{
 
-    private int id;
+    private int sqlId, idParent;
     private String name, type;
     
-    public Tree_objectPointer(int id, String name, String type) {
-        this.id = id;
+    public Tree_objectPointer(int sqlId, String name, String type, int idParent) {
+        this.sqlId = sqlId;
         this.name = name;
         this.type = type;
+        this.idParent = idParent;
     }
 
-    public int getId() {
-        return id;
+    public int getSqlId() {
+        return sqlId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSqlId(int sqlId) {
+        this.sqlId = sqlId;
     }
 
     public String getName() {
@@ -37,10 +39,12 @@ public class Tree_objectPointer {
         this.type = type;
     }
 
+    public int getIdParent(){
+        return idParent;
+    }
+    
     @Override
     public String toString() {
         return name;
     }
-    
-    
 }

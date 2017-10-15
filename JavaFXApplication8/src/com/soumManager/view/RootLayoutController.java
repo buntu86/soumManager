@@ -6,9 +6,14 @@ import com.soumManager.utils.Log;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class RootLayoutController {
 
@@ -46,10 +51,24 @@ public class RootLayoutController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Agenda.fxml"));            
-            agendaLayout = (AnchorPane) loader.load();     
+            agendaLayout = (AnchorPane) loader.load();  
+            Stage agendaStage = new Stage();
+            agendaStage.setTitle("Agenda");
+            agendaStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(agendaLayout);
+            agendaStage.setScene(scene);            
             AgendaController controller = loader.getController();
-            
-            rootLayout.setCenter(agendaLayout);
+            controller.setStage(agendaStage);
+
+            agendaStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
+                if(t.getCode()==KeyCode.ESCAPE)
+                {
+                    agendaStage.close();
+                    Log.msg(0, "Agenda : esc");
+                }
+            });            
+
+            agendaStage.showAndWait();
 
         } catch (Exception e) {
             Log.msg(1, "showAgenda | " + e.getMessage());

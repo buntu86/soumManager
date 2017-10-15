@@ -222,4 +222,58 @@ public class Sql_agenda {
             System.out.println(e.getMessage());
         }       
     }
+
+    public static Adresse_type getAdresseType_byIdType(int id) {
+        Adresse_type adresseType = new Adresse_type(0, "");
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Types WHERE ID=?");
+            pstmt.setInt(1, id);  
+            ResultSet rsAdresses = pstmt.executeQuery();
+            while(rsAdresses.next()){
+                adresseType.setCategorie(rsAdresses.getString("categorie"));
+                adresseType.setId(rsAdresses.getInt("ID"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }           
+        
+        return adresseType;        
+    }
+
+    public static ObservableList<Adresse> getListeAdressesFromSearch(String string) {
+        ObservableList<Adresse> tmpList = FXCollections.observableArrayList();
+        
+        string = string.trim();
+        string = string.replace("'", "''");
+        if(string.isEmpty())
+            string = "";
+        
+        string = '%' + string + '%';
+        
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Adresses WHERE nom1 LIKE ? ORDER BY nom1 ASC");
+            pstmt.setString(1, string);
+            ResultSet rsAdresses = pstmt.executeQuery();
+            while(rsAdresses.next()){
+                tmpList.add(new Adresse(
+                    rsAdresses.getInt("ID"),
+                    rsAdresses.getString("nom1"),
+                    rsAdresses.getString("nom2"),
+                    rsAdresses.getString("adresse1"),
+                    rsAdresses.getString("adresse2"),
+                    rsAdresses.getString("lieu"),
+                    rsAdresses.getInt("npa"),
+                    rsAdresses.getString("tel1"),
+                    rsAdresses.getString("tel2"),
+                    rsAdresses.getString("mail"),
+                    rsAdresses.getInt("idType")));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }       
+        
+        return tmpList;
+    }
 }

@@ -153,4 +153,9 @@ public final class Adresse {
     public StringProperty nom1Property() {
         return nom1;
     }
+
+    @Override
+    public String toString() {
+        return getNom1();
+    }
 }
