@@ -1,14 +1,9 @@
 package com.soumManager;
 
-import com.agenda.model.Adresse;
-import com.agenda.model.Agenda;
 import com.soumManager.data.Sql_catalog;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import com.soumManager.view.RootLayoutController;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -33,16 +28,6 @@ public class MainApp extends Application {
 
         Config.iniConfig();
         Sql_catalog.ini();
-        Agenda.addAdresse(new Adresse(0, 
-            "Nom de l entreprise 2", 
-            LocalDateTime.now().toString(),
-            "rue de la prog", 
-            "nouvelle adresse 2", 
-            "ici",
-            9999, 
-            "0788600766", 
-            "0088545555", 
-            "mon@email.com", 1));
     }
 
     public Stage getPrimaryStage() {

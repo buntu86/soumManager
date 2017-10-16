@@ -34,6 +34,6 @@ public final class Adresse_type {
 
     @Override
     public String toString() {
-        return "Adresse_type{" + "categorie=" + categorie + '}';
+        return getCategorie();
     }
 }

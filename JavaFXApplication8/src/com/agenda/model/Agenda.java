@@ -22,7 +22,7 @@ public final class Agenda {
     }
     
     public static void addAdresse(Adresse adresse) {
-        Sql_agenda.add(adresse);
+        Sql_agenda.addAdresse(adresse);
     }
 
     public static Adresse getAdresseById(int id) {
@@ -30,10 +30,14 @@ public final class Agenda {
     }
 
     public static void delAdresse(int idAdresseSelected) {
-        Sql_agenda.del(idAdresseSelected);
+        Sql_agenda.delAdresse(idAdresseSelected);
     }
 
     public static ObservableList<Adresse> getListeAdressesFromSearch(String string) {
         return Sql_agenda.getListeAdressesFromSearch(string);
+    }
+
+    public static void updateAdresse(int id, Adresse adresse) {
+        Sql_agenda.updateAdresse(id, adresse);
     }
 }

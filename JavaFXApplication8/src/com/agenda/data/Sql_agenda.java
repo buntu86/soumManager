@@ -11,10 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.sqlite.jdbc4.JDBC4PreparedStatement;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class Sql_agenda {
     private static Connection conn = null;
@@ -26,12 +27,6 @@ public class Sql_agenda {
         update();
         return listeAdresses;
     }
-
-    public static ObservableList<Adresse_type> getTypes() {
-        update();
-        return listeTypes;
-    }    
-    
     
     private static void connect() {
         try {
@@ -111,6 +106,7 @@ public class Sql_agenda {
     }    
     
     public static ObservableList<Adresse> getAdresses_byIdTypes(int id) {
+        connect();
         listeAdresses_byIdTypes.clear();
         try{
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Adresses WHERE idType=? ORDER BY nom1 ASC");
@@ -139,49 +135,59 @@ public class Sql_agenda {
         return listeAdresses_byIdTypes;
     }    
     
-    public static void add(Adresse adresse) {
-        connect();
-        try{
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Adresses ("
-                + "idType,"
-                + "nom1,"
-                + "nom2,"
-                + "tel1,"
-                + "tel2,"
-                + "mail,"
-                + "adresse1,"
-                + "adresse2,"
-                + "npa,"
-                + "lieu) VALUES("
-                    + "?, " //idType 1
-                    + "?, " //nom1 2
-                    + "?, " //nom2 3
-                    + "?, " //tel1 4
-                    + "?, " //tel2 5
-                    + "?, " //mail 6
-                    + "?, " //adresse1 7
-                    + "?, " //adresse2 8
-                    + "?, " //npa 9
-                    + "?)"); //lieu 10
-            pstmt.setInt(1, adresse.getIdAdresseType());
-            pstmt.setString(2, adresse.getNom1());
-            pstmt.setString(3, adresse.getNom2());
-            pstmt.setString(4, adresse.getTel1());
-            pstmt.setString(5, adresse.getTel2());
-            pstmt.setString(6, adresse.getMail());
-            pstmt.setString(7, adresse.getAdresse1());
-            pstmt.setString(8, adresse.getAdresse2());
-            pstmt.setInt(9, adresse.getNpa());
-            pstmt.setString(10, adresse.getLieu());
-            pstmt.executeUpdate();
-            pstmt.close();              
+    public static void addAdresse(Adresse adresse) {
+        if(adresse.getNom1().trim().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur : nom1");
+            alert.setHeaderText(null);
+            alert.setContentText("Erreur le champ \"nom1\" est obligatoire");
+            alert.showAndWait();        
         }
-        catch(SQLException e){        
-            Log.msg(1, "Fail add adresse sql " + e);
+        else {
+            connect();
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Adresses ("
+                    + "idType,"
+                    + "nom1,"
+                    + "nom2,"
+                    + "tel1,"
+                    + "tel2,"
+                    + "mail,"
+                    + "adresse1,"
+                    + "adresse2,"
+                    + "npa,"
+                    + "lieu) VALUES("
+                        + "?, " //idType 1
+                        + "?, " //nom1 2
+                        + "?, " //nom2 3
+                        + "?, " //tel1 4
+                        + "?, " //tel2 5
+                        + "?, " //mail 6
+                        + "?, " //adresse1 7
+                        + "?, " //adresse2 8
+                        + "?, " //npa 9
+                        + "?)"); //lieu 10
+                pstmt.setInt(1, adresse.getIdAdresseType());
+                pstmt.setString(2, adresse.getNom1());
+                pstmt.setString(3, adresse.getNom2());
+                pstmt.setString(4, adresse.getTel1());
+                pstmt.setString(5, adresse.getTel2());
+                pstmt.setString(6, adresse.getMail());
+                pstmt.setString(7, adresse.getAdresse1());
+                pstmt.setString(8, adresse.getAdresse2());
+                pstmt.setInt(9, adresse.getNpa());
+                pstmt.setString(10, adresse.getLieu());
+                pstmt.executeUpdate();
+                pstmt.close();              
+            }
+            catch(SQLException e){        
+                Log.msg(1, "Fail add adresse sql " + e);
+            }        
         }
     }
 
     public static Adresse getAdresseById(int id) {
+        connect();
         Adresse tmp = null;
         
         try{
@@ -210,38 +216,29 @@ public class Sql_agenda {
         return tmp;
     }
 
-    public static void del(int idAdresseSelected) {
+    public static void delAdresse(int idAdresseSelected) {
         connect();
-
-        try{
-            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Adresses WHERE ID=?");
-            pstmt.setInt(1, idAdresseSelected);
-            pstmt.execute();
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }       
-    }
-
-    public static Adresse_type getAdresseType_byIdType(int id) {
-        Adresse_type adresseType = new Adresse_type(0, "");
-        try{
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Types WHERE ID=?");
-            pstmt.setInt(1, id);  
-            ResultSet rsAdresses = pstmt.executeQuery();
-            while(rsAdresses.next()){
-                adresseType.setCategorie(rsAdresses.getString("categorie"));
-                adresseType.setId(rsAdresses.getInt("ID"));
-            }
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }           
         
-        return adresseType;        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suprression");
+        alert.setHeaderText(null);
+        alert.setContentText("Etes-vous sur de vouloir supprimer l'adresse \"" + Agenda.getAdresseById(idAdresseSelected).getNom1() + "\" ?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Adresses WHERE ID=?");
+                pstmt.setInt(1, idAdresseSelected);
+                pstmt.execute();
+            }
+            catch(SQLException e){
+                System.out.println(e.getMessage());
+            }               
+        }    
     }
 
     public static ObservableList<Adresse> getListeAdressesFromSearch(String string) {
+        connect();
         ObservableList<Adresse> tmpList = FXCollections.observableArrayList();
         
         string = string.trim();
@@ -276,4 +273,71 @@ public class Sql_agenda {
         
         return tmpList;
     }
+
+    public static void updateAdresse(int id, Adresse adresse) {
+        if(adresse.getNom1().trim().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur : nom1");
+            alert.setHeaderText(null);
+            alert.setContentText("Erreur le champ \"nom1\" est obligatoire");
+            alert.showAndWait();        
+        }
+        else {
+            connect();
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE Adresses SET "
+                        + "idType=?," //01
+                        + "nom1=?, " //02
+                        + "nom2=?," //03
+                        + "tel1=?," //04
+                        + "tel2=?," //05
+                        + "mail=?," //06
+                        + "adresse1=?," //07
+                        + "adresse2=?," //08
+                        + "npa=?," //09
+                        + "lieu=? " //10
+                        + "WHERE ID=?"); //11
+                pstmt.setInt(1, adresse.getIdAdresseType());
+                pstmt.setString(2, adresse.getNom1());
+                pstmt.setString(3, adresse.getNom2());
+                pstmt.setString(4, adresse.getTel1());
+                pstmt.setString(5, adresse.getTel2());
+                pstmt.setString(6, adresse.getMail());
+                pstmt.setString(7, adresse.getAdresse1());
+                pstmt.setString(8, adresse.getAdresse2());
+                pstmt.setInt(9, adresse.getNpa());
+                pstmt.setString(10, adresse.getLieu());
+                pstmt.setInt(11, id);
+                pstmt.executeUpdate();
+                pstmt.close();              
+            }
+            catch(SQLException e){        
+                Log.msg(1, "Fail update adresse sql " + e);
+            }        
+        }
+    }
+    
+    //ADRESSE TYPE
+    public static Adresse_type getAdresseType_byIdType(int id) {
+        connect();
+        Adresse_type adresseType = new Adresse_type(0, "");
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Types WHERE ID=?");
+            pstmt.setInt(1, id);  
+            ResultSet rsAdresses = pstmt.executeQuery();
+            while(rsAdresses.next()){
+                adresseType.setCategorie(rsAdresses.getString("categorie"));
+                adresseType.setId(rsAdresses.getInt("ID"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }           
+        
+        return adresseType;        
+    }    
+    public static ObservableList<Adresse_type> getTypes() {
+        update();
+        return listeTypes;
+    }        
 }

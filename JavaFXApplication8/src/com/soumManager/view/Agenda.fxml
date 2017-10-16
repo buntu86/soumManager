@@ -24,7 +24,7 @@
             </ListView>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                  <Button fx:id="btn_ajouter" layoutX="495.0" layoutY="10.0" mnemonicParsing="false" text="Ajouter" />
+                  <Button fx:id="btn_ajouter" layoutX="495.0" layoutY="10.0" mnemonicParsing="false" onAction="#openAgendaAdd" text="Ajouter" />
                   <Button fx:id="btn_edit" layoutX="410.0" layoutY="10.0" mnemonicParsing="false" onAction="#openAgendaEdit" text="Editer" />
                   <Button fx:id="btn_fermer" layoutX="325.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeStage" text="Fermer" />
               </buttons>

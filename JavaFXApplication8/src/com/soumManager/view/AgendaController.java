@@ -34,16 +34,24 @@ public class AgendaController implements Initializable{
         
     private Stage agendaStage;
     private int idSelected = 0;
+    private String search = "";
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateList("");
         btn_edit.setDisable(true);
-        tf_search.textProperty().addListener((observable, oldValue, newValue) -> updateList(newValue));
+        tf_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateList(newValue);
+            this.search = newValue;
+                });
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue!=null)
+            {
                 btn_edit.setDisable(false);
-            idSelected = newValue.getId();
+                idSelected = newValue.getId();
+            }
+            else
+                idSelected = 0;
         });
     }    
 
@@ -52,7 +60,6 @@ public class AgendaController implements Initializable{
     }
     
     private void updateList(String str){
-        Log.msg(0, str);
         list.setItems(Agenda.getListeAdressesFromSearch(str)); 
     }
     
@@ -71,8 +78,40 @@ public class AgendaController implements Initializable{
             AgendaEditController controller = loader.getController();
             Stage agendaEditStage = new Stage();
             controller.setStage(agendaEditStage);            
-            controller.setId(idSelected);            
+            controller.setId(idSelected);
+            controller.setAction("edit");
             agendaEditStage.setTitle("Agenda - édition");
+            agendaEditStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(agendaEditLayout);
+            agendaEditStage.setScene(scene);                                
+
+            agendaEditStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
+                if(t.getCode()==KeyCode.ESCAPE)
+                {
+                    agendaEditStage.close();
+                    Log.msg(0, "AgendaEdit : esc");
+                }
+            });
+            agendaEditStage.showAndWait();
+            updateList(this.search);
+
+        } catch (Exception e) {
+            Log.msg(1, "AgendaEdit | " + e.getMessage());
+        }                
+    }
+    @FXML
+    private void openAgendaAdd(){
+        AnchorPane agendaEditLayout;        
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/AgendaEdit.fxml"));
+            agendaEditLayout = (AnchorPane) loader.load();  
+            AgendaEditController controller = loader.getController();
+            Stage agendaEditStage = new Stage();
+            controller.setStage(agendaEditStage);            
+            controller.setId(0);
+            controller.setAction("add");
+            agendaEditStage.setTitle("Agenda - ajout");
             agendaEditStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(agendaEditLayout);
             agendaEditStage.setScene(scene);                                
@@ -86,9 +125,10 @@ public class AgendaController implements Initializable{
             });                       
             
             agendaEditStage.showAndWait();
+            updateList(this.search);            
 
         } catch (Exception e) {
-            Log.msg(1, "showAgenda | " + e.getMessage());
+            Log.msg(1, "AgendaEdit | " + e.getMessage());
         }                
-    }
+    }    
 }
