@@ -64,6 +64,10 @@ public final class Adresse {
         return idAdresseType;
     }
 
+    public Adresse_type getAdresseType() {
+        return Agenda.getAdresseType_byIdType(idAdresseType);
+    }
+    
     public void setIdAdresseType(int value) {
         idAdresseType = value;
     }

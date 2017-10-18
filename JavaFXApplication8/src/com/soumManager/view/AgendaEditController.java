@@ -103,8 +103,15 @@ public class AgendaEditController implements Initializable {
         tf_lieu.setText(tmpAdr.getLieu()); 
         tf_tel1.setText(tmpAdr.getTel1());
         tf_tel2.setText(tmpAdr.getTel2());
-        tf_mail.setText(tmpAdr.getMail());   
-        //choiceBox.getSelectionModel().select
+        tf_mail.setText(tmpAdr.getMail());
+        
+        for(Adresse_type tmpAdresseType : Agenda.getListeTypes())
+        {
+            if(tmpAdresseType.getId()==tmpAdr.getIdAdresseType())
+                choiceBox.getSelectionModel().select(tmpAdresseType);
+        }
+        
+        Log.msg(0, tmpAdr.getIdAdresseType() + "");
     }
 
     @FXML
@@ -119,7 +126,7 @@ public class AgendaEditController implements Initializable {
                 tf_tel1.getText(),
                 tf_tel2.getText(),
                 tf_mail.getText(),
-                1));
+                choiceBox.getSelectionModel().getSelectedItem().getId()));
         stage.close();
     }
     @FXML
