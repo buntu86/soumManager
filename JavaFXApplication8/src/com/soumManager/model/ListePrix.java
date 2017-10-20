@@ -1,9 +1,7 @@
 package com.soumManager.model;
 
 import java.util.UUID;
-import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -11,15 +9,15 @@ import javafx.beans.property.StringProperty;
 public final class ListePrix {
     private final String id;
     private final StringProperty titre = new SimpleStringProperty("titre inconnu");
-    private final StringProperty idEntreprise = new SimpleStringProperty("-");
+    private final IntegerProperty idEntreprise = new SimpleIntegerProperty(0);
     private final StringProperty remarques = new SimpleStringProperty("");
-    private final FloatProperty rabais1 = new SimpleFloatProperty(0.00f);
-    private final FloatProperty rabais2 = new SimpleFloatProperty(0.00f);
-    private final FloatProperty escompte = new SimpleFloatProperty(0.00f);
+    private final IntegerProperty rabais1 = new SimpleIntegerProperty(0);
+    private final IntegerProperty rabais2 = new SimpleIntegerProperty(0);
+    private final IntegerProperty escompte = new SimpleIntegerProperty(0);
     private final IntegerProperty date = new SimpleIntegerProperty(0);
     
 
-    public ListePrix(String titre, String idEntreprise, Float rabais1, Float rabais2, Float escompte, String remarques, int date){
+    public ListePrix(String titre, int idEntreprise, int rabais1, int rabais2, int escompte, String remarques, int date){
         id = UUID.randomUUID().toString();
         setTitre(titre);
         setIdEntreprise(idEntreprise);
@@ -58,51 +56,51 @@ public final class ListePrix {
         return date;
     }
 
-    public float getEscompte() {
+    public int getEscompte() {
         return escompte.get();
     }
 
-    public void setEscompte(float value) {
+    public void setEscompte(int value) {
         escompte.set(value);
     }
 
-    public FloatProperty escompteProperty() {
+    public IntegerProperty escompteProperty() {
         return escompte;
     }
 
-    public float getRabais2() {
+    public int getRabais2() {
         return rabais2.get();
     }
 
-    public void setRabais2(float value) {
+    public void setRabais2(int value) {
         rabais2.set(value);
     }
 
-    public FloatProperty rabais2Property() {
+    public IntegerProperty rabais2Property() {
         return rabais2;
     }
 
-    public float getRabais1() {
+    public int getRabais1() {
         return rabais1.get();
     }
 
-    public void setRabais1(float value) {
+    public void setRabais1(int value) {
         rabais1.set(value);
     }
 
-    public FloatProperty rabais1Property() {
+    public IntegerProperty rabais1Property() {
         return rabais1;
     }
 
-    public String getIdEntreprise() {
+    public Integer getIdEntreprise() {
         return idEntreprise.get();
     }
 
-    public void setIdEntreprise(String value) {
+    public void setIdEntreprise(int value) {
         idEntreprise.set(value);
     }
 
-    public StringProperty idEntrepriseProperty() {
+    public IntegerProperty idEntrepriseProperty() {
         return idEntreprise;
     }
 

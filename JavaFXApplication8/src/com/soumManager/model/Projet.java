@@ -1,36 +1,47 @@
 package com.soumManager.model;
 
-import com.agenda.model.Adresse;
-import com.agenda.model.Adresse_type;
-import java.util.UUID;
+import com.soumManager.data.Sql_Projet;
+import com.soumManager.utils.Log;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public final class Projet {
-    private final String id;
-    private final ObservableList<Adresse> listeEntreprises = FXCollections.observableArrayList();
-    private final ObservableList<ListePrix> listesPrix = FXCollections.observableArrayList();
-    private final ObservableList<Adresse_type> listeTypeAdresses = FXCollections.observableArrayList();
+    //private final String id;
+    //private final ObservableList<Adresse> listeEntreprises = FXCollections.observableArrayList();
+    private ObservableList<ListePrix> listesPrix = FXCollections.observableArrayList();
     private int dateAdjudication = 0;
-    private String idListePrixAdjudication = null;
+    private int idListePrixAdjudication = 0;
     
     private final StringProperty numProjet = new SimpleStringProperty("---");
     private final StringProperty nomProjet = new SimpleStringProperty("inconnu");
+    private final StringProperty pathProjet = new SimpleStringProperty("c:\\");
 
-    public Projet(String numProjet, String nomProjet){
-        this.id = UUID.randomUUID().toString();
+    //NEW!
+    public Projet(String numProjet, String nomProjet, String pathProjet){
+        //this.id = UUID.randomUUID().toString();
         setNomProjet(nomProjet);
         setNumProjet(numProjet);
+        setPathProjet(pathProjet);
+        Sql_Projet.createProjet(numProjet, nomProjet, pathProjet);
+    }
+
+    //OPEN!
+    public Projet(String pathProjet) {
+        setPathProjet(pathProjet);
+        Sql_Projet.setPath(pathProjet);
+        setNumProjet(Sql_Projet.getNumProjet());
+        setNomProjet(Sql_Projet.getNomProjet());        
+        setListesPrix(Sql_Projet.getListePrix());
     }
     
     //ADJUDICATION
-    public void setAdjudication(int date, String idListePrix){
+    public void setAdjudication(int date, int idListePrix){
         dateAdjudication = date;
         idListePrixAdjudication = idListePrix;
     }
-    public String getIdListePrixAdjuication(){
+    public int getIdListePrixAdjuication(){
         return idListePrixAdjudication;
     }
     public int getDateAdjudication(){
@@ -43,18 +54,21 @@ public final class Projet {
     public void addListePrix(ListePrix liste){
         listesPrix.add(liste);
     }
+    public void setListesPrix(ObservableList<ListePrix> liste){
+        this.listesPrix = liste;
+    }
     
     
-    public ObservableList<Adresse> getListesEntreprises(){
+    /*public ObservableList<Adresse> getListesEntreprises(){
         return listeEntreprises;
     }
     public void addEntreprise(Adresse adresse){
         listeEntreprises.add(adresse);
-    }
+    }*/
     
-    public String getIdProjet(){
+    /*public String getIdProjet(){
         return id;
-    }
+    }*/
     
     public String getNomProjet() {
         return nomProjet.get();
@@ -78,5 +92,9 @@ public final class Projet {
 
     public StringProperty numProjetProperty() {
         return numProjet;
+    }
+    
+    public void setPathProjet(String value){
+        pathProjet.set(value);
     }
 }

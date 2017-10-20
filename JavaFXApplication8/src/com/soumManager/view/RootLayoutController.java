@@ -1,9 +1,12 @@
 package com.soumManager.view;
 
 import com.soumManager.MainApp;
+import com.soumManager.model.ListePrix;
+import com.soumManager.model.Projet;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import java.io.File;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,8 +21,10 @@ import javafx.stage.Stage;
 public class RootLayoutController {
 
     private MainApp mainApp;
-    private AnchorPane referenceLayout, sia451Layout, agendaLayout;
-    private BorderPane rootLayout;    
+    private AnchorPane referenceLayout, sia451Layout, agendaLayout, projetNewLayout, projetMainLayout, projetOpenLayout;
+    private BorderPane rootLayout;
+    private Projet projet = null;
+
     
     @FXML
     private void handleExit(){
@@ -114,11 +119,84 @@ public class RootLayoutController {
     private void handleCloseSia451(){
         rootLayout.getChildren().remove(sia451Layout);
     }    
-    
-    public RootLayoutController(){
-        
-    }    
 
+    @FXML
+    private void handleProjetNew(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Projet_new.fxml"));            
+            projetNewLayout = (AnchorPane) loader.load();  
+            Stage projetNewStage = new Stage();
+            projetNewStage.setTitle("Nouveau projet");
+            projetNewStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(projetNewLayout);
+            projetNewStage.setScene(scene);            
+            Projet_newController controller = loader.getController();
+            controller.setStage(projetNewStage);
+            controller.setRootLayout(this);
+            
+            projetNewStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
+                if(t.getCode()==KeyCode.ESCAPE)
+                {
+                    projetNewStage.close();
+                    Log.msg(0, "Projet new : esc");
+                }
+            });            
+
+            projetNewStage.showAndWait();
+
+        } catch (Exception e) {
+            Log.msg(1, "showProjetNew | " + e.getMessage());
+        }        
+    }    
+    @FXML
+    private void handleProjetOpen(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Projet_open.fxml"));            
+            projetOpenLayout = (AnchorPane) loader.load();  
+            Stage projetOpenStage = new Stage();
+            projetOpenStage.setTitle("Ouvrir projet");
+            projetOpenStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(projetOpenLayout);
+            projetOpenStage.setScene(scene);            
+            Projet_openController controller = loader.getController();
+            controller.setStage(projetOpenStage);
+            controller.setRootLayout(this);
+            
+            projetOpenStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
+                if(t.getCode()==KeyCode.ESCAPE)
+                {
+                    projetOpenStage.close();
+                    Log.msg(0, "Projet open : esc");
+                }
+            });            
+
+            projetOpenStage.showAndWait();
+
+        } catch (Exception e) {
+            Log.msg(1, "showProjetNew | " + e.getMessage());
+        }        
+    }    
+    @FXML
+    public void handleOpenProjetMain(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Projet_main.fxml"));            
+            projetMainLayout = (AnchorPane) loader.load();     
+            Projet_mainController controller = loader.getController();
+            controller.setRootLayout(this);            
+            rootLayout.setCenter(projetMainLayout);
+            
+        } catch (Exception e) {
+            Log.msg(1, "projetMain | " + e.getMessage());
+        }        
+    }
+    @FXML
+    private void handleCloseProjetMain(){
+        rootLayout.getChildren().remove(projetMainLayout);
+    }
+    
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }     
@@ -126,4 +204,28 @@ public class RootLayoutController {
     public void setRootLayout(BorderPane rootLayout) {
         this.rootLayout = rootLayout;
     }  
+
+    public void newProjet(String numProjet, String nomProjet, String pathProjet) {
+        projet = new Projet(numProjet, nomProjet, pathProjet);
+        handleOpenProjetMain();
+        setPrimaryTitle();
+    }
+    
+    public void openProjet(String pathProjet) {
+        projet = new Projet(pathProjet);
+        handleOpenProjetMain();
+        setPrimaryTitle();
+    }
+
+    private void setPrimaryTitle() {
+        this.mainApp.setTitlePrimaryStage(projet.getNumProjet() + " " + projet.getNomProjet());
+    }
+
+    public Projet getProjet() {
+        return this.projet;
+    }
+    
+    public void test(){
+        this.mainApp.setTitlePrimaryStage("TEST");
+    }
 }

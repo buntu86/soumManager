@@ -55,7 +55,7 @@ public class MainApp extends Application {
     public void setTitlePrimaryStage(String str)
     {
         if(!str.isEmpty())
-            str = " - " + str;
-        this.primaryStage.setTitle("SoumManager" + str);
+            str = str + " - ";
+        this.primaryStage.setTitle(str + "SoumManager");
     }        
 }

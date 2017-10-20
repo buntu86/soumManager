@@ -1,10 +1,8 @@
 package com.soumManager.data;
 
-import com.soumManager.model.Catalog;
 import com.soumManager.model.Position21;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
-import static java.lang.System.exit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +13,6 @@ import java.util.Calendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 
 public class Sql_dbReference {
     private static Connection conn = null;
