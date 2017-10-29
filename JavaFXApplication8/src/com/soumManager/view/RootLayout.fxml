@@ -12,6 +12,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Fichier">
             <items>
+                  <MenuItem fx:id="reOpen" mnemonicParsing="false" onAction="#reOpenProjet" text="Ouvrir dernier projet" />
                   <SeparatorMenuItem mnemonicParsing="false" />                  
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Quitter" />
             </items>

@@ -57,6 +57,10 @@ public class Config {
         }   
     }
     
+    public static Properties getPropertiesConf(){
+        return Config.prop;
+    }
+    
     public static Path getPath_listCatalog(){
         return path_listCatalog;
     }

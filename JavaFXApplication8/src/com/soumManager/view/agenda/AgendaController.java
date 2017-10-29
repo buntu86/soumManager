@@ -1,4 +1,4 @@
-package com.soumManager.view;
+package com.soumManager.view.agenda;
 
 import com.agenda.model.Adresse;
 import com.agenda.model.Agenda;
@@ -73,7 +73,7 @@ public class AgendaController implements Initializable{
         AnchorPane agendaEditLayout;        
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/AgendaEdit.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/agenda/AgendaEdit.fxml"));
             agendaEditLayout = (AnchorPane) loader.load();  
             AgendaEditController controller = loader.getController();
             Stage agendaEditStage = new Stage();

@@ -1,5 +1,7 @@
 package com.soumManager.model;
 
+import com.agenda.data.Sql_agenda;
+import com.agenda.model.Adresse;
 import java.util.UUID;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -117,5 +119,13 @@ public final class ListePrix {
     public StringProperty titreProperty() {
         return titre;
     }
-    
+
+    public StringProperty entrepriseNameProperty() {
+        Adresse tmp = Sql_agenda.getAdresseById(getIdEntreprise());
+        String tmpStr = "Entreprise inconnu - id " + getIdEntreprise();
+        if(tmp!=null)
+            tmpStr = tmp.getNom1();
+
+        return new SimpleStringProperty(tmpStr);
+    }
 }

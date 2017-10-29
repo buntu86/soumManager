@@ -1,4 +1,4 @@
-package com.soumManager.view;
+package com.soumManager.view.agenda;
 
 import com.agenda.model.Adresse;
 import com.agenda.model.Adresse_type;

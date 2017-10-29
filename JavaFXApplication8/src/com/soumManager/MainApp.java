@@ -28,6 +28,7 @@ public class MainApp extends Application {
 
         Config.iniConfig();
         Sql_catalog.ini();
+        //http://tutorials.jenkov.com/javafx/stackedareachart.html
     }
 
     public Stage getPrimaryStage() {

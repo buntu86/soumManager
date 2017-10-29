@@ -1,15 +1,21 @@
 package com.soumManager.view;
 
+import com.soumManager.view.agenda.AgendaController;
 import com.soumManager.MainApp;
 import com.soumManager.model.ListePrix;
 import com.soumManager.model.Projet;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +30,9 @@ public class RootLayoutController {
     private AnchorPane referenceLayout, sia451Layout, agendaLayout, projetNewLayout, projetMainLayout, projetOpenLayout;
     private BorderPane rootLayout;
     private Projet projet = null;
-
+      
+    @FXML
+    private MenuItem reOpen;
     
     @FXML
     private void handleExit(){
@@ -55,7 +63,7 @@ public class RootLayoutController {
     private void handleOpenAgenda(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/Agenda.fxml"));            
+            loader.setLocation(MainApp.class.getResource("/com/soumManager/view/agenda/Agenda.fxml"));            
             agendaLayout = (AnchorPane) loader.load();  
             Stage agendaStage = new Stage();
             agendaStage.setTitle("Agenda");
@@ -212,9 +220,22 @@ public class RootLayoutController {
     }
     
     public void openProjet(String pathProjet) {
-        projet = new Projet(pathProjet);
-        handleOpenProjetMain();
-        setPrimaryTitle();
+        if(Paths.get(pathProjet).toFile().exists())
+        {
+            Log.msg(0, pathProjet);
+            projet = new Projet(pathProjet);
+            handleOpenProjetMain();
+            setPrimaryTitle();
+            addPathProjetToLastOpen(pathProjet);
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur - Ouvrir projet");
+            alert.setHeaderText(null);
+            alert.setContentText("Le fichier \"" + pathProjet + "\" ne peut pas être ouvert.");
+            alert.showAndWait();        
+        }
     }
 
     private void setPrimaryTitle() {
@@ -224,8 +245,17 @@ public class RootLayoutController {
     public Projet getProjet() {
         return this.projet;
     }
-    
-    public void test(){
-        this.mainApp.setTitlePrimaryStage("TEST");
+
+    private void addPathProjetToLastOpen(String str) {
+        Config.getPropertiesConf().setProperty("lastOpen", str);
+        try{
+            Config.getPropertiesConf().store(new FileOutputStream("resources/config.properties"), "edit lastOpen");
+        }catch (Exception ex) {
+            Log.msg(1, "Fail to write addLastOpen");
+        }          
+    }
+    @FXML
+    private void reOpenProjet(){
+        openProjet(Config.getPropertiesConf().getProperty("lastOpen"));
     }
 }
