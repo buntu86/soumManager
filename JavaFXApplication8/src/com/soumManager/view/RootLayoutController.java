@@ -2,15 +2,12 @@ package com.soumManager.view;
 
 import com.soumManager.view.agenda.AgendaController;
 import com.soumManager.MainApp;
-import com.soumManager.model.ListePrix;
 import com.soumManager.model.Projet;
 import com.soumManager.utils.Config;
 import com.soumManager.utils.Log;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.file.Paths;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

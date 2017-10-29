@@ -1,7 +1,6 @@
 package com.soumManager.model;
 
 import com.soumManager.data.Sql_Projet;
-import com.soumManager.utils.Log;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -31,9 +30,7 @@ public final class Projet {
     public Projet(String pathProjet) {
         setPathProjet(pathProjet);
         Sql_Projet.setPath(pathProjet);
-        setNumProjet(Sql_Projet.getNumProjet());
-        setNomProjet(Sql_Projet.getNomProjet());        
-        setListesPrix(Sql_Projet.getListePrix());
+        hydrate();
     }
     
     //ADJUDICATION
@@ -96,5 +93,11 @@ public final class Projet {
     
     public void setPathProjet(String value){
         pathProjet.set(value);
+    }
+
+    public void hydrate() {
+        setNumProjet(Sql_Projet.getNumProjet());
+        setNomProjet(Sql_Projet.getNomProjet());        
+        setListesPrix(Sql_Projet.getListePrix());
     }
 }

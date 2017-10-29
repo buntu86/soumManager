@@ -36,7 +36,13 @@ public class Projet_mainController implements Initializable {
 
     void setRootLayout(RootLayoutController aThis) {
         this.rootLayout = aThis;
-        tableView.setItems(rootLayout.getProjet().getListesPrix());        
+        updateTableView();
+    }
+    
+    private void updateTableView(){
+        rootLayout.getProjet().hydrate();
+        tableView.setItems(rootLayout.getProjet().getListesPrix());            
+        Log.msg(0, "update tableView");
     }
 
     @FXML
@@ -63,9 +69,9 @@ public class Projet_mainController implements Initializable {
             });            
 
             addListePrixStage.showAndWait();
-
         } catch (Exception e) {
             Log.msg(1, "openAddListePrix | " + e.getMessage());
         }           
+        updateTableView();
     }
 }
