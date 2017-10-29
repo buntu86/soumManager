@@ -38,7 +38,7 @@ public class Tools {
         return  str;
     }    
     
-    public static String ConvertDateToSecond(String date){
+    public static int ConvertDateToSecond(String date){
         if(date!=null)
         {
             String[] parts = date.split("\\.");
@@ -51,16 +51,16 @@ public class Tools {
 
                 if(day<32 & day>0 & month>0 & month<13 & year>1900 & year<2100)
                 {
-                    return Long.toString(LocalDateTime.of(year, month, day, 0, 0).toEpochSecond(ZoneOffset.UTC));
+                    return (int) LocalDateTime.of(year, month, day, 0, 0).toEpochSecond(ZoneOffset.UTC);
                 }
                 else
-                    return "0";
+                    return 0;
             }
             else
-                return "0";
+                return 0;
         }
         else
-            return "0";
+            return 0;
     }    
 
     /*private static MainApp main;

@@ -2,6 +2,8 @@ package com.soumManager.view;
 
 import com.agenda.data.Sql_agenda;
 import com.agenda.model.Adresse;
+import com.soumManager.data.Sql_Projet;
+import com.soumManager.model.ListePrix;
 import com.soumManager.utils.Log;
 import com.soumManager.utils.Tools;
 import java.net.URL;
@@ -52,6 +54,15 @@ public class Projet_addListePrixController implements Initializable {
     private void save(){
         if(!tf_titre.getText().trim().equals(""))
         {
+            //public ListePrix(String titre, int idEntreprise, int rabais1, int rabais2, int escompte, String remarques, int date){
+            Sql_Projet.addListePrix(new ListePrix(
+                    tf_titre.getText(),
+                    comboBox.getSelectionModel().getSelectedItem().getId(), 
+                    Tools.stringToInt(tf_rabais1.getText()),
+                    Tools.stringToInt(tf_rabais2.getText()),
+                    Tools.stringToInt(tf_escompte.getText()),
+                    tf_remarques.getText(),
+                    Tools.ConvertDateToSecond(tf_date.getText())));
             Log.msg(0, "Save");
             close();
         }

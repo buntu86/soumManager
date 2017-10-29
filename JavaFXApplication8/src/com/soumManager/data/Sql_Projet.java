@@ -152,7 +152,44 @@ public class Sql_Projet {
     public static void setPath(String pathProjet) {
         Sql_Projet.pathProjet = Paths.get(pathProjet);
     }
+    
+    public static void addListePrix(ListePrix lp_tmp){
+        connect();
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Listes_prix ("
+                    + "idEntreprise, "
+                    + "titre, "
+                    + "date, "
+                    + "rabais1, "
+                    + "rabais2, "
+                    + "escompte, "
+                    + "remarques) VALUES("
+                    + "?, " //idEntreprise 1
+                    + "?, " //titre 2
+                    + "?, " //date 3
+                    + "?, " //rabais1 4
+                    + "?, " //rabais2 5
+                    + "?, " //escompte 6
+                    + "?)"); //remarques 7
+            pstmt.setInt(1, lp_tmp.getIdEntreprise());
+            pstmt.setString(2, lp_tmp.getTitre());
+            pstmt.setInt(3, lp_tmp.getDate());
+            pstmt.setInt(4, lp_tmp.getRabais1());
+            pstmt.setInt(5, lp_tmp.getRabais2());
+            pstmt.setInt(6, lp_tmp.getEscompte());
+            pstmt.setString(7, lp_tmp.getRemarques());
+            pstmt.executeUpdate();
+            pstmt.close();              
+            }
+            catch(SQLException e){        
+                Log.msg(1, "Fail add listePrix sql " + e);
+            }        
+        }
 }
+/*
+
+*/
+
 
 
 /*        try {
