@@ -200,6 +200,7 @@ public class RootLayoutController {
     @FXML
     private void handleCloseProjetMain(){
         rootLayout.getChildren().remove(projetMainLayout);
+        this.mainApp.setTitlePrimaryStage("");
     }
     
     public void setMainApp(MainApp mainApp) {

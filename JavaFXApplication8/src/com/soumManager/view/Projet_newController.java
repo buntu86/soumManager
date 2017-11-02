@@ -1,14 +1,10 @@
 package com.soumManager.view;
 
-import com.soumManager.model.Projet;
-import com.soumManager.utils.Log;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -43,6 +39,7 @@ public class Projet_newController implements Initializable {
     @FXML
     private void close(){
         stage.close();
+        
     }
     
     @FXML

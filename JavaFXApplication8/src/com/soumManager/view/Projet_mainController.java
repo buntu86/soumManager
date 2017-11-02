@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
@@ -25,6 +26,9 @@ public class Projet_mainController implements Initializable {
     private TableColumn<ListePrix, String> titre;
     @FXML
     private TableColumn<ListePrix, String> entreprise;
+    @FXML
+    private Button afficheListeDetails;
+    
     
     private RootLayoutController rootLayout;
 
@@ -73,5 +77,11 @@ public class Projet_mainController implements Initializable {
             Log.msg(1, "openAddListePrix | " + e.getMessage());
         }           
         updateTableView();
+    }
+    
+    @FXML
+    private void afficheListeDetails(){
+       
+        Log.msg(0, "affiche détails liste -> " + tableView.getSelectionModel().getSelectedItem().getId());
     }
 }
